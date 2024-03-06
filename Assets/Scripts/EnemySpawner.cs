@@ -6,6 +6,7 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private Transform[] _spawnPoints;
     [SerializeField] private GameObject _enemyPrefab;
+    [SerializeField] private Transform _target;
     [SerializeField] private float _timeToSpawn;
     [SerializeField] private bool _canSpawn = true;
 
@@ -20,6 +21,15 @@ public class EnemySpawner : MonoBehaviour
     {
         GameObject enemyObject = Instantiate(_enemyPrefab);
         enemyObject.transform.position = _spawnPoints[Random.Range(_minRandomSpawnPoints, _spawnPoints.Length)].position;
+        Enemy enemyComponent = enemyObject.GetComponent<Enemy>();
+
+        if(enemyComponent != null)
+        {
+            if(_target != null)
+            {
+                enemyComponent.SetTarget(_target);
+            }
+        }
     }
 
     private IEnumerator Spawner()

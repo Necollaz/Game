@@ -3,12 +3,11 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _speed;
+    [SerializeField] private Transform _target;
 
-    private Transform _target;
-
-    private void Start()
+    public void SetTarget(Transform target)
     {
-        SetDestinationToPlayer();
+        _target = target;
     }
 
     private void Update()
@@ -34,16 +33,6 @@ public class Enemy : MonoBehaviour
         if(_target != null)
         {
             transform.LookAt(_target);
-        }
-    }
-
-    private void SetDestinationToPlayer()
-    {
-        Player player = FindObjectOfType<Player>();
-
-        if(player != null)
-        {
-            _target = player.transform;
         }
     }
 }
